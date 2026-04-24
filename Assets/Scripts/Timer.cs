@@ -16,6 +16,8 @@ public class Timer : MonoBehaviour
     {
         if (gameOver) return;
 
+        if (timerText == null) return;
+
         if (timeLeft > 0)
         {
             timeLeft -= Time.deltaTime;
