@@ -2234,6 +2234,7 @@ MonoBehaviour:
   brakeForceMultiplier: 6
   targetImage: {fileID: 1931416229}
   textUI: {fileID: 886518944}
+  gameOverText: {fileID: 237136108}
 --- !u!54 &2067580013
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2372,6 +2373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollisionCargo
   objectToDestroy: {fileID: 168495479}
+  gameOverText: {fileID: 237136108}
 --- !u!1 &2088080682
 GameObject:
   m_ObjectHideFlags: 0

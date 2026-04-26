@@ -152,9 +152,6 @@ public class PlayMovement : MonoBehaviour
         // кулдаун
         inCooldown = true;
 
-        // UI "заблокирован"
-        SetTransparency(0.2f);
-
         // 5 секунд кулдауна
         yield return new WaitForSeconds(5f);
 

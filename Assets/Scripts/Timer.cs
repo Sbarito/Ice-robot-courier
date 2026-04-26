@@ -42,7 +42,7 @@ public class Timer : MonoBehaviour
                 Destroy(obj);
         }
 
-        timerText.text = "GAME OVER";
+        timerText.text = "Время: 0";
 
         Invoke("RestartLevel", 2f);
     }
