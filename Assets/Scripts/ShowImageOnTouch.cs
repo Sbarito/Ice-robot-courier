@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class ShowImageOnTouch : MonoBehaviour
 {
     public Image targetImage;
-    public GameObject[] hideWhileActiveUI; // любые UI элементы (Image, Text, TMP и т.д.)
+    public GameObject[] hideWhileActiveUI;
     public string sceneName = "level_1";
 
     private bool isLoading = false;
@@ -29,14 +29,11 @@ public class ShowImageOnTouch : MonoBehaviour
     {
         isLoading = true;
 
-        // скрываем дополнительные UI
         SetUIActive(false);
 
-        // показываем основную картинку
         if (targetImage != null)
             targetImage.gameObject.SetActive(true);
 
-        // заморозка игрока
         Rigidbody rb = player.GetComponent<Rigidbody>();
         if (rb != null)
         {
