@@ -1,9 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class CollisionCargo : MonoBehaviour
 {
     public GameObject objectToDestroy;
+    public GameObject destroyVFX;
+    public float reloadDelay = 0.5f;
 
     void OnCollisionEnter(Collision collision)
     {
@@ -15,10 +18,17 @@ public class CollisionCargo : MonoBehaviour
             {
                 Debug.Log("Сильное столкновение с препятствием!");
 
+                Instantiate(destroyVFX, transform.TransformPoint(Vector3.up * 2f), transform.rotation);
                 Destroy(objectToDestroy);
 
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                StartCoroutine(ReloadSceneWithDelay());
             }
         }
+    }
+
+    IEnumerator ReloadSceneWithDelay()
+    {
+        yield return new WaitForSeconds(reloadDelay);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
