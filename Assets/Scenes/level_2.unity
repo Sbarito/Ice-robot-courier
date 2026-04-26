@@ -221,7 +221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Timer
   timerText: {fileID: 1588797386}
-  timeLeft: 10
+  timeLeft: 5
   player: {fileID: 1209437540}
   worldObjects: []
 --- !u!1 &144899153
