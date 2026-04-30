@@ -6401,7 +6401,7 @@ Transform:
   m_GameObject: {fileID: 886944640}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.57500005, y: -0.2686, z: 0.43299985}
+  m_LocalPosition: {x: 0.57500005, y: -0.234, z: 0.43299985}
   m_LocalScale: {x: 0.14549999, y: 0.46276, z: 0.3074}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6815,7 +6815,7 @@ Transform:
   m_GameObject: {fileID: 1048038965}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.57500005, y: -0.2686, z: -0.43059993}
+  m_LocalPosition: {x: 0.57500005, y: -0.222, z: -0.43059993}
   m_LocalScale: {x: 0.14549999, y: 0.46276, z: 0.3074}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7246,6 +7246,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe86a5cd05bc3134c99291b0d517a307, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CollisionCargo
+  spawnPrefabs:
+  - {fileID: 1831260151591371718, guid: 50d32476a501cd940963d8045ce2a73d, type: 3}
+  spawnOffset: 0.5
+  spawnedObjectLifetime: 5
   objectToDestroy: {fileID: 2066364927}
   destroyVFX: {fileID: 8525990746615576120, guid: b85d21f3b8fed714bacf0c4fd50fa512, type: 3}
   maxHealth: 100
@@ -7253,6 +7257,7 @@ MonoBehaviour:
   damageMultiplier: 2
   healthText: {fileID: 839693624}
   reloadDelay: 0.5
+  fakeBreak: {fileID: 2066364929}
 --- !u!1001 &1215562757
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8233,7 +8238,7 @@ Transform:
   m_GameObject: {fileID: 1634144445}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.574, y: -0.2686, z: -0.43059993}
+  m_LocalPosition: {x: -0.574, y: -0.213, z: -0.43059993}
   m_LocalScale: {x: 0.14549999, y: 0.46276, z: 0.3074}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8859,7 +8864,7 @@ Transform:
   m_GameObject: {fileID: 1865355349}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.563, y: -0.2686, z: 0.43299985}
+  m_LocalPosition: {x: -0.563, y: -0.208, z: 0.43299985}
   m_LocalScale: {x: 0.14549999, y: 0.46276, z: 0.3074}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9356,7 +9361,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 02f8651daf665e94ca321ce4cd4f4277, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2066364929}
   m_SourcePrefab: {fileID: 100100000, guid: 02f8651daf665e94ca321ce4cd4f4277, type: 3}
 --- !u!1 &2066364927 stripped
 GameObject:
@@ -9368,6 +9376,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: 02f8651daf665e94ca321ce4cd4f4277, type: 3}
   m_PrefabInstance: {fileID: 2066364926}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2066364929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2066364927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78fd7d9c083ca6a418859a51a885d2ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FakeBreak
+  debrisPrefabs:
+  - {fileID: 1831260151591371718, guid: 50d32476a501cd940963d8045ce2a73d, type: 3}
+  - {fileID: 2554242911524211533, guid: 7a74ef8e0e2b0df4881ef433aa0d1894, type: 3}
+  - {fileID: 4652672595334269217, guid: 4b2efc0e0eeac494fb4c2d79eb5f29ac, type: 3}
+  debrisCount: 8
+  explosionForce: 4
+  radius: 2
 --- !u!1 &2092229901
 GameObject:
   m_ObjectHideFlags: 0
