@@ -5,7 +5,11 @@ using System.Collections;
 
 public class CollisionCargo : MonoBehaviour
 {
-    [Header("Cargo Settings")]
+    [Header("Spawn Settings")]
+    public GameObject[] spawnPrefabs;
+    public float spawnOffset = 0.5f;
+    public float spawnedObjectLifetime = 5f;
+
     public GameObject objectToDestroy;
     public GameObject destroyVFX;
 
@@ -25,7 +29,7 @@ public class CollisionCargo : MonoBehaviour
     public float reloadDelay = 0.5f;
 
     [Header("Destruction")]
-    public FakeBreak fakeBreak; // 👈 ВАЖНО ДОБАВИЛИ
+    public FakeBreak fakeBreak;
 
     private float currentHealth;
 
@@ -50,6 +54,25 @@ public class CollisionCargo : MonoBehaviour
 
                 UpdateHealthUI();
 
+                if (spawnPrefabs != null && spawnPrefabs.Length > 0)
+                {
+                    int count = Random.Range(2, 5);
+
+                    for (int i = 0; i < count; i++)
+                    {
+                        GameObject prefabToSpawn =
+                            spawnPrefabs[Random.Range(0, spawnPrefabs.Length)];
+
+                        Vector3 randomOffset = Random.insideUnitSphere * spawnOffset;
+                        Vector3 spawnPos =
+                            collision.GetContact(0).point + randomOffset;
+
+                        GameObject obj = Instantiate(prefabToSpawn, spawnPos, Random.rotation);
+
+                        Destroy(obj, spawnedObjectLifetime);
+                    }
+                }
+
                 if (currentHealth <= 0f)
                 {
                     DestroyCargo();
@@ -71,17 +94,16 @@ public class CollisionCargo : MonoBehaviour
             else healthText.color = Color.red;
         }
     }
+
     void DestroyCargo()
     {
         Debug.Log("Груз уничтожен!");
 
-        // разрушение
         if (fakeBreak != null)
         {
             fakeBreak.Break();
         }
 
-        // 🔥 VFX (улучшенный)
         if (destroyVFX != null)
         {
             GameObject vfx = Instantiate(
@@ -90,16 +112,13 @@ public class CollisionCargo : MonoBehaviour
                 Quaternion.identity
             );
 
-            // если это не ParticleSystem — удаляем через время
             Destroy(vfx, 3f);
         }
 
-        // отключаем коллайдер
         Collider col = GetComponent<Collider>();
         if (col != null)
             col.enabled = false;
 
-        // перезагрузка сцены
         StartCoroutine(ReloadSceneWithDelay());
     }
 

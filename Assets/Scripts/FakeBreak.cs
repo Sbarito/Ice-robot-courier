@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FakeBreak : MonoBehaviour
 {
-    public GameObject[] debrisPrefabs; // несколько префабов
+    public GameObject[] debrisPrefabs;
 
     public int debrisCount = 8;
     public float explosionForce = 4f;
@@ -12,7 +12,6 @@ public class FakeBreak : MonoBehaviour
     {
         for (int i = 0; i < debrisCount; i++)
         {
-            // выбираем 
             GameObject prefab = debrisPrefabs[Random.Range(0, debrisPrefabs.Length)];
 
             GameObject piece = Instantiate(

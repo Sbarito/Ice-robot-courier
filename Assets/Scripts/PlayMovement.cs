@@ -23,7 +23,6 @@ public class PlayMovement : MonoBehaviour
     private float originalAlphaImage;
     private float originalAlphaText;
 
-    // --- ENTER STATE ---
     private bool canUseEnter = true;
     private bool effectActive = false;
     private bool inCooldown = false;
@@ -52,7 +51,6 @@ public class PlayMovement : MonoBehaviour
         Brake();
     }
 
-    // ---------------- INPUT ----------------
 
     void HandleInput()
     {
@@ -99,7 +97,6 @@ public class PlayMovement : MonoBehaviour
         }
     }
 
-    // ---------------- MOVEMENT ----------------
 
     void Move()
     {
@@ -118,7 +115,6 @@ public class PlayMovement : MonoBehaviour
 
     void Brake()
     {
-        // работает только во время активного эффекта
         if (!effectActive) return;
 
         if (Keyboard.current != null &&
@@ -133,36 +129,27 @@ public class PlayMovement : MonoBehaviour
         }
     }
 
-    // ---------------- EFFECT SYSTEM ----------------
 
     IEnumerator EnterRoutine()
     {
         canUseEnter = false;
         effectActive = true;
 
-        // эффект включён
         SetTransparency(0.5f);
 
-        // 1 секунда активного эффекта
         yield return new WaitForSeconds(1f);
 
-        // выключаем эффект
         effectActive = false;
 
-        // кулдаун
         inCooldown = true;
 
-        // 5 секунд кулдауна
         yield return new WaitForSeconds(5f);
 
-        // восстановление
         inCooldown = false;
         canUseEnter = true;
 
         SetTransparency(originalAlphaImage);
     }
-
-    // ---------------- VISUAL ----------------
 
     void SetTransparency(float alpha)
     {
@@ -181,7 +168,6 @@ public class PlayMovement : MonoBehaviour
         }
     }
 
-    // ---------------- GROUND CHECK ----------------
 
     bool IsGrounded()
     {
