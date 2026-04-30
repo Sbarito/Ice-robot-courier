@@ -7134,7 +7134,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 64
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &1209437543
 BoxCollider:
@@ -7248,6 +7248,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CollisionCargo
   spawnPrefabs:
   - {fileID: 1831260151591371718, guid: 50d32476a501cd940963d8045ce2a73d, type: 3}
+  - {fileID: 2554242911524211533, guid: 7a74ef8e0e2b0df4881ef433aa0d1894, type: 3}
   spawnOffset: 0.5
   spawnedObjectLifetime: 5
   objectToDestroy: {fileID: 2066364927}
