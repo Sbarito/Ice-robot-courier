@@ -19,11 +19,13 @@ public class CollisionCargo : MonoBehaviour
     public float damageMultiplier = 2f;
 
     [Header("UI")]
-    [Tooltip("TMP текст для отображения процента прочности")]
     public TextMeshProUGUI healthText;
 
     [Header("Scene Reload")]
     public float reloadDelay = 0.5f;
+
+    [Header("Destruction")]
+    public FakeBreak fakeBreak; // 👈 ВАЖНО ДОБАВИЛИ
 
     private float currentHealth;
 
@@ -39,29 +41,15 @@ public class CollisionCargo : MonoBehaviour
         {
             float speed = collision.relativeVelocity.magnitude;
 
-            // Проверяем минимальную скорость урона
             if (speed > minDamageSpeed)
             {
-                // Вычисляем урон
                 float damage = (speed - minDamageSpeed) * damageMultiplier;
 
-                // Уменьшаем здоровье
                 currentHealth -= damage;
-
-                // Ограничиваем диапазон
                 currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
-                Debug.Log(
-                    $"Столкновение! " +
-                    $"Скорость: {speed:F1} | " +
-                    $"Урон: {damage:F1} | " +
-                    $"Прочность: {currentHealth:F1}"
-                );
-
-                // Обновляем UI
                 UpdateHealthUI();
 
-                // Проверяем уничтожение
                 if (currentHealth <= 0f)
                 {
                     DestroyCargo();
@@ -75,61 +63,49 @@ public class CollisionCargo : MonoBehaviour
         if (healthText != null)
         {
             float percent = (currentHealth / maxHealth) * 100f;
-
-            // Обновляем текст
             healthText.text = $"Запас прочности: {percent:F0}%";
 
-            // Меняем цвет в зависимости от процента
-            if (percent > 75f)
-            {
-                healthText.color = Color.green;
-            }
-            else if (percent > 50f)
-            {
-                healthText.color = Color.yellow;
-            }
-            else if (percent > 25f)
-            {
-                // Оранжевый цвет
-                healthText.color = new Color(1f, 0.5f, 0f);
-            }
-            else
-            {
-                healthText.color = Color.red;
-            }
+            if (percent > 75f) healthText.color = Color.green;
+            else if (percent > 50f) healthText.color = Color.yellow;
+            else if (percent > 25f) healthText.color = new Color(1f, 0.5f, 0f);
+            else healthText.color = Color.red;
         }
     }
-
     void DestroyCargo()
     {
         Debug.Log("Груз уничтожен!");
 
-        // Эффект разрушения
+        // разрушение
+        if (fakeBreak != null)
+        {
+            fakeBreak.Break();
+        }
+
+        // 🔥 VFX (улучшенный)
         if (destroyVFX != null)
         {
-            Instantiate(
+            GameObject vfx = Instantiate(
                 destroyVFX,
-                transform.TransformPoint(Vector3.up * 2f),
-                transform.rotation
+                transform.position + Vector3.up * 1f,
+                Quaternion.identity
             );
+
+            // если это не ParticleSystem — удаляем через время
+            Destroy(vfx, 3f);
         }
 
-        // Уничтожение объекта
-        if (objectToDestroy != null)
-        {
-            Destroy(objectToDestroy);
-        }
+        // отключаем коллайдер
+        Collider col = GetComponent<Collider>();
+        if (col != null)
+            col.enabled = false;
 
-        // Перезагрузка сцены
+        // перезагрузка сцены
         StartCoroutine(ReloadSceneWithDelay());
     }
 
     IEnumerator ReloadSceneWithDelay()
     {
         yield return new WaitForSeconds(reloadDelay);
-
-        SceneManager.LoadScene(
-            SceneManager.GetActiveScene().name
-        );
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
